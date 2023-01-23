@@ -6,6 +6,7 @@ use Log;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User;
 use Tailor\Models\EntryRecord;
+use Validator;
 
 /**
  * Plugin Information File
@@ -132,7 +133,7 @@ class Plugin extends PluginBase
             //Increase the Max Allowed uploaded file for profile avatars
             $user->bindEvent('model.beforeValidate', function() use ($user) {
                 $user->rules['avatar'] = 'nullable|image|max:2048';
-                $user->rules['username'] = 'required|between:3,255|unique:users|regex:/^\S*$/u';
+                $user->rules['username'] = 'required|between:3,255|unique:users|regex:/^\S*$/u|profane:en';
             });
         });
     }
